@@ -1,5 +1,9 @@
 .intro {
+  $font-size: 68px;
+  $font-weight: 800;
+
   display: grid;
   place-items: center;
-  border: red solid;
+  font-size: $font-size;
+  font-weight: $font-weight;
 }

@@ -1,12 +1,13 @@
-// import Canvas from "./three/Canvas";
+"use client";
 
 import Folio from "./(content)/Folio";
+import Scene from "./(three)/Scene";
 
 const page = () => {
   return (
-    <div>
-      <Folio />
-    </div>
+    <main>
+      <Scene />
+    </main>
   );
 };
 
