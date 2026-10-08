@@ -8,14 +8,32 @@ Source: https://sketchfab.com/3d-models/office-desk-e0f8dc2f81d440a09e9519fdc9e7
 Title: Office Desk
 */
 
-import React, { JSX } from "react";
+import React, { JSX, useRef } from "react";
 import { Outlines, useGLTF } from "@react-three/drei";
 import { GLTFResult } from "./OfficeTypes";
+import { animated, useSpring } from "@react-spring/three";
 
 function Chair({ nodes, materials }: Partial<GLTFResult>) {
+  const chairRef = useRef(null);
+
+  const { positionX } = useSpring({
+    from: { positionX: 0 },
+    to: [{ positionX: -3 }, { positionX: 0 }],
+    loop: true,
+    config: { tension: 120, friction: 20 },
+  });
+
   if (!nodes || !materials) return <></>;
+
   return (
-    <group name="chair" scale={5} position={[-3, 0, 0]}>
+    <animated.group
+      name="chair"
+      scale={5}
+      position-x={positionX}
+      position-y={0}
+      position-z={0}
+      ref={chairRef}
+    >
       <mesh
         name="Officechair1228C6_StaticMeshComponent0_MI_Color_M08_0"
         geometry={
@@ -42,7 +60,7 @@ function Chair({ nodes, materials }: Partial<GLTFResult>) {
           name: "Officechair1228C6_StaticMeshComponent0_MI_plasticGrey_0",
         }}
       />
-    </group>
+    </animated.group>
   );
 }
 
