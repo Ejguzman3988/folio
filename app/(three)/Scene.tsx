@@ -4,8 +4,9 @@ import { Canvas } from "@react-three/fiber";
 import styles from "./Scene.module.scss";
 import TestLaptop from "./TestLaptop";
 import { a as three } from "@react-spring/three";
-import { ContactShadows, Environment } from "@react-three/drei";
+import { ContactShadows, Environment, OrbitControls } from "@react-three/drei";
 import { Suspense } from "react";
+import { Office } from "./Office";
 
 const Scene = (props: any) => {
   return (
@@ -20,7 +21,8 @@ const Scene = (props: any) => {
         color={"#d25578"}
       />
       <Suspense fallback={null}>
-        <TestLaptop />
+        {/* <TestLaptop /> */}
+        <Office />
         <Environment preset="city" />
       </Suspense>
       <ContactShadows
@@ -30,6 +32,7 @@ const Scene = (props: any) => {
         blur={1.75}
         far={4.5}
       />
+      <OrbitControls enableDamping={true} />
     </Canvas>
   );
 };
