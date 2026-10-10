@@ -19,7 +19,6 @@ function Chair({ nodes, materials }: Partial<GLTFResult>) {
   const { positionX } = useSpring({
     from: { positionX: 0 },
     to: [{ positionX: -3 }, { positionX: 0 }],
-    loop: true,
     config: { tension: 120, friction: 20 },
   });
 
@@ -28,7 +27,6 @@ function Chair({ nodes, materials }: Partial<GLTFResult>) {
   return (
     <animated.group
       name="chair"
-      scale={5}
       position-x={positionX}
       position-y={0}
       position-z={0}
@@ -72,7 +70,7 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
   const gltfProps = { nodes, materials };
   return (
     <group {...props} name="Sketchfab_Scene">
-      <group name="backwall" scale={5}>
+      <group name="backwall">
         <mesh
           name="right pinned paper"
           geometry={
@@ -165,7 +163,7 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
           }}
         />
       </group>
-      <group name="leftwall" scale={5}>
+      <group name="leftwall">
         <mesh
           name="pinned paper"
           geometry={
@@ -275,7 +273,7 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
           }}
         />
       </group>
-      <group name="rightwall" scale={5}>
+      <group name="rightwall">
         <mesh
           name="left pinned paper"
           geometry={
@@ -372,7 +370,7 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
           }}
         />
       </group>
-      <group name="cabinet" scale={5}>
+      <group name="cabinet">
         <mesh
           name="drawers handles"
           geometry={
@@ -411,7 +409,7 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
           }}
         />
       </group>
-      <group name="deskgroup" scale={5}>
+      <group name="deskgroup">
         <group name="desk">
           <mesh
             name="desk legs"
@@ -1172,7 +1170,7 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
           </group>
         </group>
       </group>
-      <group name="floor" scale={5}>
+      <group name="floor">
         <group name="desktop">
           <mesh
             name="desktop base"

@@ -7,14 +7,12 @@ import { a as three } from "@react-spring/three";
 import { ContactShadows, Environment, OrbitControls } from "@react-three/drei";
 import { Suspense } from "react";
 import { Office } from "./Office";
+import Camera from "./Camera";
 
 const Scene = (props: any) => {
   return (
-    <Canvas
-      dpr={[1, 2]}
-      camera={{ position: [0, 0, -30], fov: 35 }}
-      className={styles.canvas}
-    >
+    <Canvas dpr={[1, 2]} className={styles.canvas}>
+      <Camera />
       <three.pointLight
         position={[10, 10, 10]}
         intensity={1.5}
@@ -32,7 +30,6 @@ const Scene = (props: any) => {
         blur={1.75}
         far={4.5}
       />
-      <OrbitControls enableDamping={true} />
     </Canvas>
   );
 };
