@@ -8,17 +8,182 @@ Source: https://sketchfab.com/3d-models/office-desk-e0f8dc2f81d440a09e9519fdc9e7
 Title: Office Desk
 */
 
-import React, { JSX, useRef } from "react";
-import { Outlines, useGLTF } from "@react-three/drei";
+// TODO: Can I change target on camera (test on chair)
+// TODO: Figure out which camera angle to start at
+
+import * as THREE from "three";
+import { JSX, useEffect, useRef } from "react";
+import { Html, Text, useGLTF } from "@react-three/drei";
 import { GLTFResult } from "./OfficeTypes";
 import { animated, useSpring } from "@react-spring/three";
+import { ThreeEvent, useFrame, useThree } from "@react-three/fiber";
+
+const GOLDENRATIO = 1.61803398875;
+
+const _box = new THREE.Box3();
+const _center = new THREE.Vector3();
+const _dir = new THREE.Vector3();
+const _pos = new THREE.Vector3();
+
+function Phone({ nodes, materials }: Partial<GLTFResult>) {
+  return (
+    <group name="phone">
+      <mesh
+        name="screen"
+        geometry={
+          nodes.telephone1228A6_StaticMeshComponent0_MI_Color_M07_0.geometry
+        }
+        material={materials.MI_Color_M06_1}
+        position={[-0.032, 0.864, -0.919]}
+        rotation={[-Math.PI / 2, 0, -0.873]}
+        scale={1.102}
+        userData={{
+          name: "telephone1228A6_StaticMeshComponent0_MI_Color_M07_0",
+        }}
+      />
+      <mesh
+        name="base"
+        geometry={
+          nodes.telephone1228A6_StaticMeshComponent0_MI_plasticwhite03_0
+            .geometry
+        }
+        material={materials.MI_plasticwhite03}
+        position={[-0.032, 0.864, -0.919]}
+        rotation={[-Math.PI / 2, 0, -0.873]}
+        scale={1.102}
+        userData={{
+          name: "telephone1228A6_StaticMeshComponent0_MI_plasticwhite03_0",
+        }}
+      />
+    </group>
+  );
+}
+
+function Monitor({ nodes, materials }: Partial<GLTFResult>) {
+  const monitor = useRef<THREE.Object3D | null>(null);
+
+  const controls = useThree((s) => s.controls) as CameraControlsImpl | null;
+  const camera = useThree((s) => s.camera);
+
+  const handleClick = (e: ThreeEvent<MouseEvent>) => {
+    e.stopPropagation();
+    if (!controls) return;
+
+    const screen =
+      e.eventObject.getObjectByName("monitor screen led") ?? e.eventObject;
+
+    _box.setFromObject(screen);
+    _box.getCenter(_center);
+
+    camera.getWorldDirection(_dir);
+    _pos.copy(_center).addScaledVector(_dir, -0.5);
+
+    controls.setLookAt(
+      _pos.x,
+      _pos.y,
+      _pos.z,
+      _center.x,
+      _center.y,
+      _center.z,
+      true,
+    );
+  };
+
+  return (
+    <group name="monitor" ref={monitor} onClick={handleClick}>
+      <mesh
+        name="left postit"
+        geometry={
+          nodes.Notepaper1228B9_StaticMeshComponent0_MI_0046_Gold_0.geometry
+        }
+        material={materials.MI_0046_Gold}
+        position={[0.074, 0.925, 0.086]}
+        rotation={[-2.747, -1.114, -1.224]}
+        scale={1.102}
+        userData={{
+          name: "Notepaper1228B9_StaticMeshComponent0_MI_0046_Gold_0",
+        }}
+      />
+      <mesh
+        name="right postit"
+        geometry={
+          nodes.Notepaper1228B8_464_StaticMeshComponent0_MI_0046_Gold_0.geometry
+        }
+        material={materials.MI_0046_Gold}
+        position={[0.024, 0.923, 0.194]}
+        rotation={[-2.747, -1.114, -1.224]}
+        scale={1.102}
+        userData={{
+          name: "Notepaper1228B8_464_StaticMeshComponent0_MI_0046_Gold_0",
+        }}
+      />
+      <mesh
+        name="monitor back"
+        geometry={
+          nodes.monitor1228A6_StaticMeshComponent0_MI_plasticwhite03_0.geometry
+        }
+        material={materials.MI_plasticwhite03}
+        position={[0.143, 0.864, 0.135]}
+        rotation={[-Math.PI / 2, 0, -2.007]}
+        scale={1.102}
+        userData={{
+          name: "monitor1228A6_StaticMeshComponent0_MI_plasticwhite03_0",
+        }}
+      />
+      <mesh
+        name="monitor screen led"
+        geometry={
+          nodes.monitor1228A6_StaticMeshComponent0_MI_Object_67_0.geometry
+        }
+        material={materials.MI_Object_67}
+        position={[0.143, 0.864, 0.135]}
+        rotation={[-Math.PI / 2, 0, -2.007]}
+        scale={1.102}
+        userData={{
+          name: "monitor1228A6_StaticMeshComponent0_MI_Object_67_0",
+        }}
+      >
+        <Html
+          transform
+          occlude="blending"
+          // position={[0, 0.12, 0.011]}
+          distanceFactor={0.33}
+          rotation={[Math.PI / 2, 0, 0]}
+          // zIndexRange={[0, 0]}
+        >
+          <iframe
+            src="https://player.twitch.tv/?channel=eridotdev&parent=www.example.com"
+            frameBorder="0"
+            allowFullScreen={true}
+            scrolling="no"
+            height="378"
+            width="620"
+          />
+        </Html>
+      </mesh>
+      <mesh
+        name="monitor screen case"
+        geometry={
+          nodes.monitor1228A6_StaticMeshComponent0_MI_Object_74_0.geometry
+        }
+        material={materials.MI_Object_74}
+        position={[0.143, 0.864, 0.135]}
+        rotation={[-Math.PI / 2, 0, -2.007]}
+        scale={1.102}
+        userData={{
+          name: "monitor1228A6_StaticMeshComponent0_MI_Object_74_0",
+        }}
+      />
+    </group>
+  );
+}
 
 function Chair({ nodes, materials }: Partial<GLTFResult>) {
-  const chairRef = useRef(null);
+  const chairRef = useRef<THREE.Object3D | null>(null);
 
   const { positionX } = useSpring({
-    from: { positionX: 0 },
-    to: [{ positionX: -3 }, { positionX: 0 }],
+    from: { positionX: -1 },
+    to: [{ positionX: -4 }, { positionX: -1 }],
     config: { tension: 120, friction: 20 },
   });
 
@@ -83,7 +248,18 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
           userData={{
             name: "Notepaper1228D13_StaticMeshComponent0_MI_paper01_0",
           }}
-        />
+        >
+          <Text
+            position={[0, 0, 0.002]} // tiny offset avoids z-fighting
+            fontSize={0.02}
+            color="black"
+            anchorX="center"
+            anchorY="middle"
+            maxWidth={0.3}
+          >
+            {"RESUME"}
+          </Text>
+        </mesh>
         <mesh
           name="middle pinned paper"
           geometry={
@@ -485,76 +661,7 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
               }}
             />
           </group>
-          <group name="monitor">
-            <mesh
-              name="left postit"
-              geometry={
-                nodes.Notepaper1228B9_StaticMeshComponent0_MI_0046_Gold_0
-                  .geometry
-              }
-              material={materials.MI_0046_Gold}
-              position={[0.074, 0.925, 0.086]}
-              rotation={[-2.747, -1.114, -1.224]}
-              scale={1.102}
-              userData={{
-                name: "Notepaper1228B9_StaticMeshComponent0_MI_0046_Gold_0",
-              }}
-            />
-            <mesh
-              name="right postit"
-              geometry={
-                nodes.Notepaper1228B8_464_StaticMeshComponent0_MI_0046_Gold_0
-                  .geometry
-              }
-              material={materials.MI_0046_Gold}
-              position={[0.024, 0.923, 0.194]}
-              rotation={[-2.747, -1.114, -1.224]}
-              scale={1.102}
-              userData={{
-                name: "Notepaper1228B8_464_StaticMeshComponent0_MI_0046_Gold_0",
-              }}
-            />
-            <mesh
-              name="monitor back"
-              geometry={
-                nodes.monitor1228A6_StaticMeshComponent0_MI_plasticwhite03_0
-                  .geometry
-              }
-              material={materials.MI_plasticwhite03}
-              position={[0.143, 0.864, 0.135]}
-              rotation={[-Math.PI / 2, 0, -2.007]}
-              scale={1.102}
-              userData={{
-                name: "monitor1228A6_StaticMeshComponent0_MI_plasticwhite03_0",
-              }}
-            />
-            <mesh
-              name="monitor screen led"
-              geometry={
-                nodes.monitor1228A6_StaticMeshComponent0_MI_Object_67_0.geometry
-              }
-              material={materials.MI_Object_67}
-              position={[0.143, 0.864, 0.135]}
-              rotation={[-Math.PI / 2, 0, -2.007]}
-              scale={1.102}
-              userData={{
-                name: "monitor1228A6_StaticMeshComponent0_MI_Object_67_0",
-              }}
-            />
-            <mesh
-              name="monitor screen case"
-              geometry={
-                nodes.monitor1228A6_StaticMeshComponent0_MI_Object_74_0.geometry
-              }
-              material={materials.MI_Object_74}
-              position={[0.143, 0.864, 0.135]}
-              rotation={[-Math.PI / 2, 0, -2.007]}
-              scale={1.102}
-              userData={{
-                name: "monitor1228A6_StaticMeshComponent0_MI_Object_74_0",
-              }}
-            />
-          </group>
+          <Monitor {...gltfProps} />
           <group name="keyboard">
             <mesh
               name="keyboard"
@@ -1076,36 +1183,7 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
               />
             </group>
           </group>
-          <group name="phone">
-            <mesh
-              name="screen"
-              geometry={
-                nodes.telephone1228A6_StaticMeshComponent0_MI_Color_M07_0
-                  .geometry
-              }
-              material={materials.MI_Color_M06_1}
-              position={[-0.032, 0.864, -0.919]}
-              rotation={[-Math.PI / 2, 0, -0.873]}
-              scale={1.102}
-              userData={{
-                name: "telephone1228A6_StaticMeshComponent0_MI_Color_M07_0",
-              }}
-            />
-            <mesh
-              name="base"
-              geometry={
-                nodes.telephone1228A6_StaticMeshComponent0_MI_plasticwhite03_0
-                  .geometry
-              }
-              material={materials.MI_plasticwhite03}
-              position={[-0.032, 0.864, -0.919]}
-              rotation={[-Math.PI / 2, 0, -0.873]}
-              scale={1.102}
-              userData={{
-                name: "telephone1228A6_StaticMeshComponent0_MI_plasticwhite03_0",
-              }}
-            />
-          </group>
+          <Phone {...gltfProps} />
           <group name="tissue">
             <mesh
               name="tissue"

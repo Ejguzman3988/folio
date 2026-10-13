@@ -2,16 +2,24 @@
 
 import { Canvas } from "@react-three/fiber";
 import styles from "./Scene.module.scss";
-import TestLaptop from "./TestLaptop";
 import { a as three } from "@react-spring/three";
-import { ContactShadows, Environment, OrbitControls } from "@react-three/drei";
+import { ContactShadows, Environment } from "@react-three/drei";
 import { Suspense } from "react";
-import { Office } from "./Office";
+import { Office } from "./(office)/Office";
 import Camera from "./Camera";
 
 const Scene = (props: any) => {
   return (
-    <Canvas dpr={[1, 2]} className={styles.canvas}>
+    <Canvas
+      dpr={[1, 2]}
+      className={styles.canvas}
+      camera={{
+        fov: 50,
+        near: 0.05,
+        far: 100,
+        position: [-1.426, 1.378, -0.145],
+      }}
+    >
       <Camera />
       <three.pointLight
         position={[10, 10, 10]}
