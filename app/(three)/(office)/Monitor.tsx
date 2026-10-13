@@ -1,6 +1,6 @@
 "use client";
 
-import { CameraControlsImpl, Html } from "@react-three/drei";
+import { CameraControlsImpl, Html, Text } from "@react-three/drei";
 import { ThreeEvent, useThree } from "@react-three/fiber";
 import { useRef } from "react";
 import { Box3, Object3D, Vector3 } from "three";
@@ -95,6 +95,16 @@ export default function Monitor({ nodes, materials }: Partial<GLTFResult>) {
           name: "monitor1228A6_StaticMeshComponent0_MI_Object_67_0",
         }}
       >
+        <Text
+          position={[0, 0, 0.002]} // tiny offset avoids z-fighting
+          fontSize={0.2}
+          color="black"
+          anchorX="center"
+          anchorY="middle"
+          maxWidth={0.3}
+        >
+          {"Coming Soon"}
+        </Text>
         {/* <Html */}
         {/*   transform */}
         {/*   occlude="blending" */}
