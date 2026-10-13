@@ -3,7 +3,7 @@
 import { Canvas } from "@react-three/fiber";
 import styles from "./Scene.module.scss";
 import { a as three } from "@react-spring/three";
-import { ContactShadows, Environment } from "@react-three/drei";
+import { ContactShadows, Environment, Grid } from "@react-three/drei";
 import { Suspense } from "react";
 import { Office } from "./(office)/Office";
 import Camera from "./Camera";
@@ -21,15 +21,29 @@ const Scene = (props: any) => {
       }}
     >
       <Camera />
-      <three.pointLight
-        position={[10, 10, 10]}
-        intensity={1.5}
-        color={"#d25578"}
-      />
       <Suspense fallback={null}>
-        {/* <TestLaptop /> */}
+        <Environment
+          files="/hdri/studio_small.hdr"
+          background
+          backgroundBlurriness={0.6}
+          backgroundIntensity={0.15} // 0.6 is still very bright for a studio map
+          backgroundRotation={[0, Math.PI, 0]} // turn the bright softbox out of view
+          environmentIntensity={0.8}
+        />
         <Office />
-        <Environment preset="city" />
+        <Grid
+          position={[0, 0.001, 0]} // tiny lift so it doesn't z-fight with your floor
+          args={[10, 10]}
+          cellSize={0.5}
+          cellThickness={1}
+          sectionSize={1}
+          sectionThickness={1.2}
+          cellColor={"#fff"}
+          sectionColor="#fff"
+          fadeDistance={7.5} // grid fades out with distance
+          fadeStrength={1.5}
+          followCamera={false}
+        />
       </Suspense>
       <ContactShadows
         position={[0, -4.5, 0]}
