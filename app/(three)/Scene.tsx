@@ -23,11 +23,7 @@ const Scene = (props: any) => {
       <Camera />
       <Suspense fallback={null}>
         <Environment
-          files="/hdri/studio_small.hdr"
-          background
-          backgroundBlurriness={0.6}
-          backgroundIntensity={0.15} // 0.6 is still very bright for a studio map
-          backgroundRotation={[0, Math.PI, 0]} // turn the bright softbox out of view
+          files="./hdri/studio_small.hdr"
           environmentIntensity={0.8}
         />
         <Office />

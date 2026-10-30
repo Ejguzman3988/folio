@@ -1,9 +1,9 @@
 "use client";
 
-import { CameraControlsImpl, Html, Text } from "@react-three/drei";
+import { CameraControlsImpl, useVideoTexture } from "@react-three/drei";
 import { ThreeEvent, useThree } from "@react-three/fiber";
 import { useRef } from "react";
-import { Box3, Object3D, Vector3 } from "three";
+import { Box3, Object3D, RepeatWrapping, SRGBColorSpace, Vector3 } from "three";
 import { GLTFResult } from "../OfficeTypes";
 
 const _box = new Box3();
@@ -41,6 +41,15 @@ export default function Monitor({ nodes, materials }: Partial<GLTFResult>) {
     );
   };
 
+  const tex = useVideoTexture("./screen.mp4", {
+    muted: true,
+    loop: true,
+    start: true,
+    crossOrigin: "anonymous",
+  });
+  tex.wrapS = tex.wrapT = RepeatWrapping;
+  tex.repeat.set(100, 100); // zoom OUT; try 20 or 100 if still nothing
+  tex.needsUpdate = true;
   return (
     <group name="monitor" ref={monitor} onClick={handleClick}>
       <mesh
@@ -87,7 +96,7 @@ export default function Monitor({ nodes, materials }: Partial<GLTFResult>) {
         geometry={
           nodes.monitor1228A6_StaticMeshComponent0_MI_Object_67_0.geometry
         }
-        material={materials.MI_Object_67}
+        // material={materials.MI_Object_67}
         position={[0.143, 0.864, 0.135]}
         rotation={[-Math.PI / 2, 0, -2.007]}
         scale={1.102}
@@ -95,33 +104,7 @@ export default function Monitor({ nodes, materials }: Partial<GLTFResult>) {
           name: "monitor1228A6_StaticMeshComponent0_MI_Object_67_0",
         }}
       >
-        <Text
-          position={[0, 0, 0.002]} // tiny offset avoids z-fighting
-          fontSize={0.2}
-          color="black"
-          anchorX="center"
-          anchorY="middle"
-          maxWidth={0.3}
-        >
-          {"Coming Soon"}
-        </Text>
-        {/* <Html */}
-        {/*   transform */}
-        {/*   occlude="blending" */}
-        {/*   // position={[0, 0.12, 0.011]} */}
-        {/*   distanceFactor={0.33} */}
-        {/*   rotation={[Math.PI / 2, 0, 0]} */}
-        {/*   // zIndexRange={[0, 0]} */}
-        {/* > */}
-        {/*   <iframe */}
-        {/*     src="https://player.twitch.tv/?channel=eridotdev&parent=www.example.com" */}
-        {/*     frameBorder="0" */}
-        {/*     allowFullScreen={true} */}
-        {/*     scrolling="no" */}
-        {/*     height="378" */}
-        {/*     width="620" */}
-        {/*   /> */}
-        {/* </Html> */}
+        <meshBasicMaterial map={tex} toneMapped={false} />
       </mesh>
       <mesh
         name="monitor screen case"
