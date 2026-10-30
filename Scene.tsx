@@ -158,6 +158,7 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             name: "partition1228A4_StaticMeshComponent0_MI_Color_M06_1_0",
           }}
         />
+
         <mesh
           name="partition1228A4_StaticMeshComponent0_MI_Color_M03_0"
           geometry={
