@@ -1,6 +1,6 @@
 import styles from "./Intro.module.scss";
 
-const Intro = (props: Props) => {
+const Intro = () => {
   return (
     <section className={styles.intro}>
       <div>Software Portfolio</div>

@@ -2,13 +2,12 @@
 
 import { Canvas } from "@react-three/fiber";
 import styles from "./Scene.module.scss";
-import { a as three } from "@react-spring/three";
 import { ContactShadows, Environment, Grid } from "@react-three/drei";
 import { Suspense } from "react";
 import { Office } from "./(office)/Office";
 import Camera from "./Camera";
 
-const Scene = (props: any) => {
+const Scene = () => {
   return (
     <Canvas
       dpr={[1, 2]}
@@ -28,8 +27,7 @@ const Scene = (props: any) => {
         />
         <Office />
         <Grid
-          position={[0, 0.001, 0]} // tiny lift so it doesn't z-fight with your floor
-          args={[10, 10]}
+          position={[0, 0.001, 0]} // tiny lift so it doesn't z-fight with your floor args={[10, 10]}
           cellSize={0.5}
           cellThickness={1}
           sectionSize={1}

@@ -280,7 +280,8 @@ export function CameraDebug({ controlsRef }: Props) {
           ),
         },
         infinityDolly: {
-          value: camera.infinityDolly ?? false,
+          // value: camera.infinityDolly ?? false,
+          value: false,
           onChange: edit(
             (v) =>
               controlsRef.current && (controlsRef.current.infinityDolly = v),

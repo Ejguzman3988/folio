@@ -13,8 +13,7 @@ Title: Office Desk
 
 import { JSX } from "react";
 import { useGLTF } from "@react-three/drei";
-import { GLTFResult } from "./OfficeTypes";
-import Phone from "./Phone";
+import { GLTFResult } from "../OfficeTypes";
 import Monitor from "./Monitor";
 import Chair from "./Chair";
 import Desk from "./Desk";

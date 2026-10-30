@@ -5,14 +5,10 @@ import { ThreeEvent, useThree } from "@react-three/fiber";
 import { useEffect, useMemo, useRef } from "react";
 import {
   Box3,
-  BufferAttribute,
-  ClampToEdgeWrapping,
   DoubleSide,
   Matrix4,
   Object3D,
   Quaternion,
-  RepeatWrapping,
-  SRGBColorSpace,
   Vector3,
 } from "three";
 import { GLTFResult } from "../OfficeTypes";
@@ -156,7 +152,7 @@ export default function Monitor({ nodes, materials }: Partial<GLTFResult>) {
     const planeAspect = screen.height / screen.width;
 
     tex.center.set(0.25, 0);
-    tex.rotation = 0;
+    // tex.rotation = 0;
 
     if (videoAspect > planeAspect) {
       // video is wider than the screen: crop the sides
@@ -189,9 +185,10 @@ export default function Monitor({ nodes, materials }: Partial<GLTFResult>) {
       <mesh
         name="right postit"
         geometry={
-          nodes.Notepaper1228B8_464_StaticMeshComponent0_MI_0046_Gold_0.geometry
+          nodes?.Notepaper1228B8_464_StaticMeshComponent0_MI_0046_Gold_0
+            .geometry
         }
-        material={materials.MI_0046_Gold}
+        material={materials?.MI_0046_Gold}
         position={[0.024, 0.923, 0.194]}
         rotation={[-2.747, -1.114, -1.224]}
         scale={1.102}
@@ -202,9 +199,9 @@ export default function Monitor({ nodes, materials }: Partial<GLTFResult>) {
       <mesh
         name="monitor back"
         geometry={
-          nodes.monitor1228A6_StaticMeshComponent0_MI_plasticwhite03_0.geometry
+          nodes?.monitor1228A6_StaticMeshComponent0_MI_plasticwhite03_0.geometry
         }
-        material={materials.MI_plasticwhite03}
+        material={materials?.MI_plasticwhite03}
         position={[0.143, 0.864, 0.135]}
         rotation={[-Math.PI / 2, 0, -2.007]}
         scale={1.102}
@@ -215,7 +212,7 @@ export default function Monitor({ nodes, materials }: Partial<GLTFResult>) {
       <mesh
         name="monitor screen led"
         geometry={
-          nodes.monitor1228A6_StaticMeshComponent0_MI_Object_67_0.geometry
+          nodes?.monitor1228A6_StaticMeshComponent0_MI_Object_67_0.geometry
         }
         position={[0.143, 0.864, 0.135]}
         rotation={[-Math.PI / 2, 0, -2.007]}
@@ -248,9 +245,9 @@ export default function Monitor({ nodes, materials }: Partial<GLTFResult>) {
       <mesh
         name="monitor screen case"
         geometry={
-          nodes.monitor1228A6_StaticMeshComponent0_MI_Object_74_0.geometry
+          nodes?.monitor1228A6_StaticMeshComponent0_MI_Object_74_0.geometry
         }
-        material={materials.MI_Object_74}
+        material={materials?.MI_Object_74}
         position={[0.143, 0.864, 0.135]}
         rotation={[-Math.PI / 2, 0, -2.007]}
         scale={1.102}

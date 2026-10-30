@@ -1,8 +1,7 @@
-import React from "react";
+import { projects } from "./lib_projects";
 import styles from "./Projects.module.scss";
-import { projects } from "./projects";
 
-const Projects = (props: Props) => {
+const Projects = () => {
   return (
     <section className={styles.projects}>
       {projects.map((p, idx) => (

@@ -12,13 +12,11 @@ Title: Office Desk
 // TODO: Figure out which camera angle to start at
 
 import * as THREE from "three";
-import { JSX, useEffect, useRef } from "react";
-import { Html, Text, useGLTF } from "@react-three/drei";
+import { JSX, useRef } from "react";
+import { CameraControlsImpl, Html, Text, useGLTF } from "@react-three/drei";
 import { GLTFResult } from "./OfficeTypes";
 import { animated, useSpring } from "@react-spring/three";
-import { ThreeEvent, useFrame, useThree } from "@react-three/fiber";
-
-const GOLDENRATIO = 1.61803398875;
+import { ThreeEvent, useThree } from "@react-three/fiber";
 
 const _box = new THREE.Box3();
 const _center = new THREE.Vector3();
@@ -31,9 +29,9 @@ function Phone({ nodes, materials }: Partial<GLTFResult>) {
       <mesh
         name="screen"
         geometry={
-          nodes.telephone1228A6_StaticMeshComponent0_MI_Color_M07_0.geometry
+          nodes?.telephone1228A6_StaticMeshComponent0_MI_Color_M07_0.geometry
         }
-        material={materials.MI_Color_M06_1}
+        material={materials?.MI_Color_M06_1}
         position={[-0.032, 0.864, -0.919]}
         rotation={[-Math.PI / 2, 0, -0.873]}
         scale={1.102}
@@ -44,10 +42,10 @@ function Phone({ nodes, materials }: Partial<GLTFResult>) {
       <mesh
         name="base"
         geometry={
-          nodes.telephone1228A6_StaticMeshComponent0_MI_plasticwhite03_0
+          nodes?.telephone1228A6_StaticMeshComponent0_MI_plasticwhite03_0
             .geometry
         }
-        material={materials.MI_plasticwhite03}
+        material={materials?.MI_plasticwhite03}
         position={[-0.032, 0.864, -0.919]}
         rotation={[-Math.PI / 2, 0, -0.873]}
         scale={1.102}
@@ -94,9 +92,9 @@ function Monitor({ nodes, materials }: Partial<GLTFResult>) {
       <mesh
         name="left postit"
         geometry={
-          nodes.Notepaper1228B9_StaticMeshComponent0_MI_0046_Gold_0.geometry
+          nodes?.Notepaper1228B9_StaticMeshComponent0_MI_0046_Gold_0.geometry
         }
-        material={materials.MI_0046_Gold}
+        material={materials?.MI_0046_Gold}
         position={[0.074, 0.925, 0.086]}
         rotation={[-2.747, -1.114, -1.224]}
         scale={1.102}
@@ -107,9 +105,10 @@ function Monitor({ nodes, materials }: Partial<GLTFResult>) {
       <mesh
         name="right postit"
         geometry={
-          nodes.Notepaper1228B8_464_StaticMeshComponent0_MI_0046_Gold_0.geometry
+          nodes?.Notepaper1228B8_464_StaticMeshComponent0_MI_0046_Gold_0
+            .geometry
         }
-        material={materials.MI_0046_Gold}
+        material={materials?.MI_0046_Gold}
         position={[0.024, 0.923, 0.194]}
         rotation={[-2.747, -1.114, -1.224]}
         scale={1.102}
@@ -120,9 +119,9 @@ function Monitor({ nodes, materials }: Partial<GLTFResult>) {
       <mesh
         name="monitor back"
         geometry={
-          nodes.monitor1228A6_StaticMeshComponent0_MI_plasticwhite03_0.geometry
+          nodes?.monitor1228A6_StaticMeshComponent0_MI_plasticwhite03_0.geometry
         }
-        material={materials.MI_plasticwhite03}
+        material={materials?.MI_plasticwhite03}
         position={[0.143, 0.864, 0.135]}
         rotation={[-Math.PI / 2, 0, -2.007]}
         scale={1.102}
@@ -133,9 +132,9 @@ function Monitor({ nodes, materials }: Partial<GLTFResult>) {
       <mesh
         name="monitor screen led"
         geometry={
-          nodes.monitor1228A6_StaticMeshComponent0_MI_Object_67_0.geometry
+          nodes?.monitor1228A6_StaticMeshComponent0_MI_Object_67_0.geometry
         }
-        material={materials.MI_Object_67}
+        material={materials?.MI_Object_67}
         position={[0.143, 0.864, 0.135]}
         rotation={[-Math.PI / 2, 0, -2.007]}
         scale={1.102}
@@ -164,9 +163,9 @@ function Monitor({ nodes, materials }: Partial<GLTFResult>) {
       <mesh
         name="monitor screen case"
         geometry={
-          nodes.monitor1228A6_StaticMeshComponent0_MI_Object_74_0.geometry
+          nodes?.monitor1228A6_StaticMeshComponent0_MI_Object_74_0.geometry
         }
-        material={materials.MI_Object_74}
+        material={materials?.MI_Object_74}
         position={[0.143, 0.864, 0.135]}
         rotation={[-Math.PI / 2, 0, -2.007]}
         scale={1.102}
@@ -200,9 +199,9 @@ function Chair({ nodes, materials }: Partial<GLTFResult>) {
       <mesh
         name="Officechair1228C6_StaticMeshComponent0_MI_Color_M08_0"
         geometry={
-          nodes.Officechair1228C6_StaticMeshComponent0_MI_Color_M08_0.geometry
+          nodes?.Officechair1228C6_StaticMeshComponent0_MI_Color_M08_0.geometry
         }
-        material={materials.MI_Color_M08}
+        material={materials?.MI_Color_M08}
         position={[-0.629, 0.004, -0.275]}
         rotation={[-Math.PI / 2, 0, 1.484]}
         scale={1.102}
@@ -213,9 +212,10 @@ function Chair({ nodes, materials }: Partial<GLTFResult>) {
       <mesh
         name="Officechair1228C6_StaticMeshComponent0_MI_plasticGrey_0"
         geometry={
-          nodes.Officechair1228C6_StaticMeshComponent0_MI_plasticGrey_0.geometry
+          nodes?.Officechair1228C6_StaticMeshComponent0_MI_plasticGrey_0
+            .geometry
         }
-        material={materials.MI_plasticGrey}
+        material={materials?.MI_plasticGrey}
         position={[-0.629, 0.004, -0.275]}
         rotation={[-Math.PI / 2, 0, 1.484]}
         scale={1.102}
@@ -239,9 +239,9 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
         <mesh
           name="right pinned paper"
           geometry={
-            nodes.Notepaper1228D13_StaticMeshComponent0_MI_paper01_0.geometry
+            nodes?.Notepaper1228D13_StaticMeshComponent0_MI_paper01_0.geometry
           }
-          material={materials.MI_paper01}
+          material={materials?.MI_paper01}
           position={[0.461, 1.196, 0.83]}
           rotation={[0, -1.571, 0]}
           scale={1.102}
@@ -263,9 +263,9 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
         <mesh
           name="middle pinned paper"
           geometry={
-            nodes.Notepaper1228D12_StaticMeshComponent0_MI_paper01_0.geometry
+            nodes?.Notepaper1228D12_StaticMeshComponent0_MI_paper01_0.geometry
           }
-          material={materials.MI_paper01}
+          material={materials?.MI_paper01}
           position={[0.461, 1.196, 0.601]}
           rotation={[0, -1.571, 0]}
           scale={1.102}
@@ -276,9 +276,9 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
         <mesh
           name="left pinned paper"
           geometry={
-            nodes.Notepaper1228D11_StaticMeshComponent0_MI_paper01_0.geometry
+            nodes?.Notepaper1228D11_StaticMeshComponent0_MI_paper01_0.geometry
           }
-          material={materials.MI_paper01}
+          material={materials?.MI_paper01}
           position={[0.461, 1.196, 0.369]}
           rotation={[0, -1.571, 0]}
           scale={1.102}
@@ -289,9 +289,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
         <mesh
           name="backwall rail"
           geometry={
-            nodes.partition1228A4_StaticMeshComponent0_MI_Color_M06_1_0.geometry
+            nodes?.partition1228A4_StaticMeshComponent0_MI_Color_M06_1_0
+              .geometry
           }
-          material={materials.MI_Color_M06_1}
+          material={materials?.MI_Color_M06_1}
           position={[0.482, 0.004, -0.089]}
           rotation={[-Math.PI / 2, 0, 0]}
           scale={1.102}
@@ -302,9 +303,9 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
         <mesh
           name="backwall top rectangle"
           geometry={
-            nodes.partition1228A4_StaticMeshComponent0_MI_Color_M03_0.geometry
+            nodes?.partition1228A4_StaticMeshComponent0_MI_Color_M03_0.geometry
           }
-          material={materials.MI_Color_M03}
+          material={materials?.MI_Color_M03}
           position={[0.482, 0.004, -0.089]}
           rotation={[-Math.PI / 2, 0, 0]}
           scale={1.102}
@@ -315,9 +316,9 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
         <mesh
           name="backwall middle rectangle"
           geometry={
-            nodes.partition1228A4_StaticMeshComponent0_MI_Object_78_0.geometry
+            nodes?.partition1228A4_StaticMeshComponent0_MI_Object_78_0.geometry
           }
-          material={materials.MI_Object_78}
+          material={materials?.MI_Object_78}
           position={[0.482, 0.004, -0.089]}
           rotation={[-Math.PI / 2, 0, 0]}
           scale={1.102}
@@ -328,9 +329,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
         <mesh
           name="backwall bottom rectangle"
           geometry={
-            nodes.partition1228A4_StaticMeshComponent0_MI_Color_M05_1_0.geometry
+            nodes?.partition1228A4_StaticMeshComponent0_MI_Color_M05_1_0
+              .geometry
           }
-          material={materials.MI_Color_M05_1}
+          material={materials?.MI_Color_M05_1}
           position={[0.482, 0.004, -0.089]}
           rotation={[-Math.PI / 2, 0, 0]}
           scale={1.102}
@@ -343,9 +345,9 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
         <mesh
           name="pinned paper"
           geometry={
-            nodes.Notepaper1228D10_StaticMeshComponent0_MI_paper01_0.geometry
+            nodes?.Notepaper1228D10_StaticMeshComponent0_MI_paper01_0.geometry
           }
-          material={materials.MI_paper01}
+          material={materials?.MI_paper01}
           position={[-0.228, 1.217, -1.129]}
           scale={1.102}
           userData={{
@@ -356,10 +358,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
         <mesh
           name="left pin cap"
           geometry={
-            nodes.Notepaper1228D10_StaticMeshComponent0001_MI_Object_13_0
+            nodes?.Notepaper1228D10_StaticMeshComponent0001_MI_Object_13_0
               .geometry
           }
-          material={materials.MI_Object_0137_Black}
+          material={materials?.MI_Object_0137_Black}
           position={[-0.228, 1.217, -1.129]}
           scale={1.102}
           userData={{
@@ -370,9 +372,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
         <mesh
           name="left pin"
           geometry={
-            nodes.Notepaper1228D10_StaticMeshComponent0001_MI_paper01_0.geometry
+            nodes?.Notepaper1228D10_StaticMeshComponent0001_MI_paper01_0
+              .geometry
           }
-          material={materials.MI_paper01}
+          material={materials?.MI_paper01}
           position={[-0.228, 1.217, -1.129]}
           scale={1.102}
           userData={{
@@ -382,9 +385,9 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
         <mesh
           name="postit notes"
           geometry={
-            nodes.Notepaper122bA2_StaticMeshComponent0_MI_0046_Gold_0.geometry
+            nodes?.Notepaper122bA2_StaticMeshComponent0_MI_0046_Gold_0.geometry
           }
-          material={materials.MI_0046_Gold}
+          material={materials?.MI_0046_Gold}
           position={[-0.46, 1.127, -1.129]}
           scale={1.102}
           userData={{
@@ -394,10 +397,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
         <mesh
           name="leftwall rail"
           geometry={
-            nodes.partition1228A4_StaticMeshComponent0001_MI_Color_M06_1_0
+            nodes?.partition1228A4_StaticMeshComponent0001_MI_Color_M06_1_0
               .geometry
           }
-          material={materials.MI_Color_M06_1}
+          material={materials?.MI_Color_M06_1}
           position={[-0.089, 0.004, -1.151]}
           rotation={[-Math.PI / 2, 0, Math.PI / 2]}
           scale={1.102}
@@ -409,10 +412,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
         <mesh
           name="leftwall top rectangle"
           geometry={
-            nodes.partition1228A4_StaticMeshComponent0001_MI_Color_M03_0
+            nodes?.partition1228A4_StaticMeshComponent0001_MI_Color_M03_0
               .geometry
           }
-          material={materials.MI_Color_M03}
+          material={materials?.MI_Color_M03}
           position={[-0.089, 0.004, -1.151]}
           rotation={[-Math.PI / 2, 0, Math.PI / 2]}
           scale={1.102}
@@ -423,10 +426,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
         <mesh
           name="leftwall middle rectangle"
           geometry={
-            nodes.partition1228A4_StaticMeshComponent0001_MI_Object_78_0
+            nodes?.partition1228A4_StaticMeshComponent0001_MI_Object_78_0
               .geometry
           }
-          material={materials.MI_Object_78}
+          material={materials?.MI_Object_78}
           position={[-0.089, 0.004, -1.151]}
           rotation={[-Math.PI / 2, 0, Math.PI / 2]}
           scale={1.102}
@@ -437,10 +440,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
         <mesh
           name="leftwall bottom rectangle"
           geometry={
-            nodes.partition1228A4_StaticMeshComponent0001_MI_Color_M05_1_0
+            nodes?.partition1228A4_StaticMeshComponent0001_MI_Color_M05_1_0
               .geometry
           }
-          material={materials.MI_Color_M05_1}
+          material={materials?.MI_Color_M05_1}
           position={[-0.089, 0.004, -1.151]}
           rotation={[-Math.PI / 2, 0, Math.PI / 2]}
           scale={1.102}
@@ -453,9 +456,9 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
         <mesh
           name="left pinned paper"
           geometry={
-            nodes.Notepaper1228D14_StaticMeshComponent0_MI_paper01_0.geometry
+            nodes?.Notepaper1228D14_StaticMeshComponent0_MI_paper01_0.geometry
           }
-          material={materials.MI_paper01}
+          material={materials?.MI_paper01}
           position={[0.243, 1.185, 0.965]}
           rotation={[-Math.PI, 0, -Math.PI]}
           scale={1.102}
@@ -466,9 +469,9 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
         <mesh
           name="middle pinned paper"
           geometry={
-            nodes.Notepaper1228D15_StaticMeshComponent0_MI_paper01_0.geometry
+            nodes?.Notepaper1228D15_StaticMeshComponent0_MI_paper01_0.geometry
           }
-          material={materials.MI_paper01}
+          material={materials?.MI_paper01}
           position={[0.007, 1.185, 0.965]}
           rotation={[-Math.PI, 0, -Math.PI]}
           scale={1.102}
@@ -479,9 +482,9 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
         <mesh
           name="right pinned paper"
           geometry={
-            nodes.Notepaper1228D16_StaticMeshComponent0_MI_paper01_0.geometry
+            nodes?.Notepaper1228D16_StaticMeshComponent0_MI_paper01_0.geometry
           }
-          material={materials.MI_paper01}
+          material={materials?.MI_paper01}
           position={[-0.253, 1.185, 0.965]}
           rotation={[-Math.PI, 0, -Math.PI]}
           scale={1.273}
@@ -492,10 +495,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
         <mesh
           name="rightwall rail"
           geometry={
-            nodes.partition1228A4_StaticMeshComponent0002_MI_Color_M06_1_0
+            nodes?.partition1228A4_StaticMeshComponent0002_MI_Color_M06_1_0
               .geometry
           }
-          material={materials.MI_Color_M06_1}
+          material={materials?.MI_Color_M06_1}
           position={[-0.089, 0.004, 0.987]}
           rotation={[-Math.PI / 2, 0, Math.PI / 2]}
           scale={1.102}
@@ -506,10 +509,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
         <mesh
           name="rightwall top rectangle"
           geometry={
-            nodes.partition1228A4_StaticMeshComponent0002_MI_Color_M03_0
+            nodes?.partition1228A4_StaticMeshComponent0002_MI_Color_M03_0
               .geometry
           }
-          material={materials.MI_Color_M03}
+          material={materials?.MI_Color_M03}
           position={[-0.089, 0.004, 0.987]}
           rotation={[-Math.PI / 2, 0, Math.PI / 2]}
           scale={1.102}
@@ -520,10 +523,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
         <mesh
           name="rightwall middle rectangle"
           geometry={
-            nodes.partition1228A4_StaticMeshComponent0002_MI_Object_78_0
+            nodes?.partition1228A4_StaticMeshComponent0002_MI_Object_78_0
               .geometry
           }
-          material={materials.MI_Object_78}
+          material={materials?.MI_Object_78}
           position={[-0.089, 0.004, 0.987]}
           rotation={[-Math.PI / 2, 0, Math.PI / 2]}
           scale={1.102}
@@ -534,10 +537,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
         <mesh
           name="rightwall bottom rectangle"
           geometry={
-            nodes.partition1228A4_StaticMeshComponent0002_MI_Color_M05_1_0
+            nodes?.partition1228A4_StaticMeshComponent0002_MI_Color_M05_1_0
               .geometry
           }
-          material={materials.MI_Color_M05_1}
+          material={materials?.MI_Color_M05_1}
           position={[-0.089, 0.004, 0.987]}
           rotation={[-Math.PI / 2, 0, Math.PI / 2]}
           scale={1.102}
@@ -550,9 +553,9 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
         <mesh
           name="drawers handles"
           geometry={
-            nodes.drawer1228C6_StaticMeshComponent0_MI_Default_0.geometry
+            nodes?.drawer1228C6_StaticMeshComponent0_MI_Default_0.geometry
           }
-          material={materials.MI_Default}
+          material={materials?.MI_Default}
           position={[-0.061, 0.004, 0.663]}
           rotation={[-Math.PI / 2, 0, -1.571]}
           scale={1.102}
@@ -561,9 +564,9 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
         <mesh
           name="drawers base"
           geometry={
-            nodes.drawer1228C6_StaticMeshComponent0_MI_Color_I05_1_0.geometry
+            nodes?.drawer1228C6_StaticMeshComponent0_MI_Color_I05_1_0.geometry
           }
-          material={materials.MI_Color_I05_1}
+          material={materials?.MI_Color_I05_1}
           position={[-0.061, 0.004, 0.663]}
           rotation={[-Math.PI / 2, 0, -1.571]}
           scale={1.102}
@@ -574,9 +577,9 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
         <mesh
           name="cabinet lid"
           geometry={
-            nodes.drawer1228C6_StaticMeshComponent0_MI_Color_A01_3_0.geometry
+            nodes?.drawer1228C6_StaticMeshComponent0_MI_Color_A01_3_0.geometry
           }
-          material={materials.MI_Color_A01_3}
+          material={materials?.MI_Color_A01_3}
           position={[-0.061, 0.004, 0.663]}
           rotation={[-Math.PI / 2, 0, -1.571]}
           scale={1.102}
@@ -590,10 +593,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
           <mesh
             name="desk legs"
             geometry={
-              nodes.deskoffice1228A6_StaticMeshComponent0_MI_Object_73_0
+              nodes?.deskoffice1228A6_StaticMeshComponent0_MI_Object_73_0
                 .geometry
             }
-            material={materials.MI_Object_73}
+            material={materials?.MI_Object_73}
             position={[-0.047, 0.004, -0.335]}
             rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
             scale={1.102}
@@ -604,10 +607,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
           <mesh
             name="desk base"
             geometry={
-              nodes.deskoffice1228A6_StaticMeshComponent0_MI_Color_C06_0
+              nodes?.deskoffice1228A6_StaticMeshComponent0_MI_Color_C06_0
                 .geometry
             }
-            material={materials.MI_Color_C06}
+            material={materials?.MI_Color_C06}
             position={[-0.047, 0.004, -0.335]}
             rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
             scale={1.102}
@@ -618,10 +621,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
           <mesh
             name="desk table rim"
             geometry={
-              nodes.deskoffice1228A6_StaticMeshComponent0_MI_Object_51_0
+              nodes?.deskoffice1228A6_StaticMeshComponent0_MI_Object_51_0
                 .geometry
             }
-            material={materials.MI_Object_51}
+            material={materials?.MI_Object_51}
             position={[-0.047, 0.004, -0.335]}
             rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
             scale={1.102}
@@ -632,10 +635,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
           <mesh
             name="desk table"
             geometry={
-              nodes.deskoffice1228A6_StaticMeshComponent0_MI_Object_62_1_0
+              nodes?.deskoffice1228A6_StaticMeshComponent0_MI_Object_62_1_0
                 .geometry
             }
-            material={materials.MI_Object_62_1}
+            material={materials?.MI_Object_62_1}
             position={[-0.047, 0.004, -0.335]}
             rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
             scale={1.102}
@@ -649,10 +652,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
             <mesh
               name="mug"
               geometry={
-                nodes.cup1228A6_StaticMeshComponent0_MI_plasticwhite03_0
+                nodes?.cup1228A6_StaticMeshComponent0_MI_plasticwhite03_0
                   .geometry
               }
-              material={materials.MI_plasticwhite03}
+              material={materials?.MI_plasticwhite03}
               position={[-0.337, 0.864, -0.921]}
               rotation={[-Math.PI / 2, 0, 0]}
               scale={0.755}
@@ -666,10 +669,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
             <mesh
               name="keyboard"
               geometry={
-                nodes.keyboard1228A6_StaticMeshComponent0_MI_keyboadcolor_0
+                nodes?.keyboard1228A6_StaticMeshComponent0_MI_keyboadcolor_0
                   .geometry
               }
-              material={materials.MI_keyboadcolor}
+              material={materials?.MI_keyboadcolor}
               position={[-0.144, 0.864, -0.197]}
               rotation={[-Math.PI / 2, 0, -2.269]}
               scale={1.102}
@@ -682,9 +685,9 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
             <mesh
               name="desk papers"
               geometry={
-                nodes.paper1228A5_StaticMeshComponent0_MI_paper001_0.geometry
+                nodes?.paper1228A5_StaticMeshComponent0_MI_paper001_0.geometry
               }
-              material={materials.MI_Color_A01_3}
+              material={materials?.MI_Color_A01_3}
               position={[-0.237, 0.864, -0.634]}
               rotation={[-Math.PI / 2, 0, 0]}
               scale={1.102}
@@ -698,10 +701,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
               <mesh
                 name="middle documents binders paper"
                 geometry={
-                  nodes.documents1228H12_StaticMeshComponent0_MI_paper01_0
+                  nodes?.documents1228H12_StaticMeshComponent0_MI_paper01_0
                     .geometry
                 }
-                material={materials.MI_paper01}
+                material={materials?.MI_paper01}
                 position={[0.305, 0.864, -0.345]}
                 rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
                 scale={1.102}
@@ -712,10 +715,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
               <mesh
                 name="middle documents organizers blue"
                 geometry={
-                  nodes.documents1228H12_StaticMeshComponent0_MI_Color_F06_0
+                  nodes?.documents1228H12_StaticMeshComponent0_MI_Color_F06_0
                     .geometry
                 }
-                material={materials.MI_Color_F06}
+                material={materials?.MI_Color_F06}
                 position={[0.305, 0.864, -0.345]}
                 rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
                 scale={1.102}
@@ -726,10 +729,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
               <mesh
                 name="middle documents organizers silver"
                 geometry={
-                  nodes.documents1228H12_StaticMeshComponent0_MI_Chrome1_0
+                  nodes?.documents1228H12_StaticMeshComponent0_MI_Chrome1_0
                     .geometry
                 }
-                material={materials.MI_Chrome1}
+                material={materials?.MI_Chrome1}
                 position={[0.305, 0.864, -0.345]}
                 rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
                 scale={1.102}
@@ -740,10 +743,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
               <mesh
                 name="middle documents binders pink"
                 geometry={
-                  nodes.documents1228H12_StaticMeshComponent0_MI_Color_B04_1_0
+                  nodes?.documents1228H12_StaticMeshComponent0_MI_Color_B04_1_0
                     .geometry
                 }
-                material={materials.MI_Color_B04_1}
+                material={materials?.MI_Color_B04_1}
                 position={[0.305, 0.864, -0.345]}
                 rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
                 scale={1.102}
@@ -754,10 +757,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
               <mesh
                 name="middle documents binders bottom"
                 geometry={
-                  nodes.documents1228H12_StaticMeshComponent0_MI_Color_M04_0
+                  nodes?.documents1228H12_StaticMeshComponent0_MI_Color_M04_0
                     .geometry
                 }
-                material={materials.MI_Color_M04}
+                material={materials?.MI_Color_M04}
                 position={[0.305, 0.864, -0.345]}
                 rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
                 scale={1.102}
@@ -768,10 +771,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
               <mesh
                 name="middle documents binders blue"
                 geometry={
-                  nodes.documents1228H12_StaticMeshComponent0_MI_Color_G05_0
+                  nodes?.documents1228H12_StaticMeshComponent0_MI_Color_G05_0
                     .geometry
                 }
-                material={materials.MI_Color_G05}
+                material={materials?.MI_Color_G05}
                 position={[0.305, 0.864, -0.345]}
                 rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
                 scale={1.102}
@@ -783,9 +786,9 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
               <mesh
                 name="middle documents binders labels"
                 geometry={
-                  nodes.documents1228H12_StaticMeshComponent0_MI_W1_0.geometry
+                  nodes?.documents1228H12_StaticMeshComponent0_MI_W1_0.geometry
                 }
-                material={materials.MI_Color_A01_3}
+                material={materials?.MI_Color_A01_3}
                 position={[0.305, 0.864, -0.345]}
                 rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
                 scale={1.102}
@@ -796,10 +799,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
               <mesh
                 name="middle documents rectangle"
                 geometry={
-                  nodes.documents1228H12_StaticMeshComponent0_MI_Color_008_0
+                  nodes?.documents1228H12_StaticMeshComponent0_MI_Color_008_0
                     .geometry
                 }
-                material={materials.MI_Color_008}
+                material={materials?.MI_Color_008}
                 position={[0.305, 0.864, -0.345]}
                 rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
                 scale={1.102}
@@ -813,10 +816,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
                 <mesh
                   name="middle documents pencil eraser"
                   geometry={
-                    nodes.documents1228H12_StaticMeshComponent0_MI_Color_A05_0
+                    nodes?.documents1228H12_StaticMeshComponent0_MI_Color_A05_0
                       .geometry
                   }
-                  material={materials.MI_Color_A05}
+                  material={materials?.MI_Color_A05}
                   position={[0.305, 0.864, -0.345]}
                   rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
                   scale={1.102}
@@ -828,10 +831,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
                   name="middle documents pencil eraser cap"
                   geometry={
                     nodes
-                      .documents1228H12_StaticMeshComponent0_MI_Metal_Aluminum_Anodized_0
+                      ?.documents1228H12_StaticMeshComponent0_MI_Metal_Aluminum_Anodized_0
                       .geometry
                   }
-                  material={materials.MI_Metal_Aluminum_Anodized}
+                  material={materials?.MI_Metal_Aluminum_Anodized}
                   position={[0.305, 0.864, -0.345]}
                   rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
                   scale={1.102}
@@ -842,10 +845,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
                 <mesh
                   name="middle documents clipboards pencil tip"
                   geometry={
-                    nodes.documents1228H12_StaticMeshComponent0_MI_Object_66_0
+                    nodes?.documents1228H12_StaticMeshComponent0_MI_Object_66_0
                       .geometry
                   }
-                  material={materials.MI_Metal_Aluminum_Anodized}
+                  material={materials?.MI_Metal_Aluminum_Anodized}
                   position={[0.305, 0.864, -0.345]}
                   rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
                   scale={1.102}
@@ -856,10 +859,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
                 <mesh
                   name="middle documents clipboards pencil base"
                   geometry={
-                    nodes.documents1228H12_StaticMeshComponent0_MI_Color_D01_0
+                    nodes?.documents1228H12_StaticMeshComponent0_MI_Color_D01_0
                       .geometry
                   }
-                  material={materials.MI_Color_D01}
+                  material={materials?.MI_Color_D01}
                   position={[0.305, 0.864, -0.345]}
                   rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
                   scale={1.102}
@@ -872,10 +875,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
                 name="middle documents clipboards clip"
                 geometry={
                   nodes
-                    .documents1228H12_StaticMeshComponent0_MI_Object_0137_Black__0
+                    ?.documents1228H12_StaticMeshComponent0_MI_Object_0137_Black__0
                     .geometry
                 }
-                material={materials.MI_Object_0137_Black}
+                material={materials?.MI_Object_0137_Black}
                 position={[0.305, 0.864, -0.345]}
                 rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
                 scale={1.102}
@@ -886,10 +889,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
               <mesh
                 name="middle documents clipboards base"
                 geometry={
-                  nodes.documents1228H12_StaticMeshComponent0_MI_Color_M05_0
+                  nodes?.documents1228H12_StaticMeshComponent0_MI_Color_M05_0
                     .geometry
                 }
-                material={materials.MI_Color_M05_1}
+                material={materials?.MI_Color_M05_1}
                 position={[0.305, 0.864, -0.345]}
                 rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
                 scale={1.102}
@@ -904,10 +907,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
               <mesh
                 name="left drawer"
                 geometry={
-                  nodes.drawer1228D16_StaticMeshComponent0_MI_plasticwhite03_0
+                  nodes?.drawer1228D16_StaticMeshComponent0_MI_plasticwhite03_0
                     .geometry
                 }
-                material={materials.MI_plasticwhite03}
+                material={materials?.MI_plasticwhite03}
                 position={[0.221, 0.864, -0.991]}
                 rotation={[-Math.PI / 2, 0, -1.571]}
                 scale={1.102}
@@ -918,10 +921,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
               <mesh
                 name="middle drawer"
                 geometry={
-                  nodes.drawer1228D17_StaticMeshComponent0_MI_plasticwhite03_0
+                  nodes?.drawer1228D17_StaticMeshComponent0_MI_plasticwhite03_0
                     .geometry
                 }
-                material={materials.MI_plasticwhite03}
+                material={materials?.MI_plasticwhite03}
                 position={[0.221, 0.864, -0.832]}
                 rotation={[-Math.PI / 2, 0, -1.571]}
                 scale={1.102}
@@ -933,10 +936,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
               <mesh
                 name="right drawer"
                 geometry={
-                  nodes.drawer1228D18_StaticMeshComponent0_MI_plasticwhite03_0
+                  nodes?.drawer1228D18_StaticMeshComponent0_MI_plasticwhite03_0
                     .geometry
                 }
-                material={materials.MI_plasticwhite03}
+                material={materials?.MI_plasticwhite03}
                 position={[0.221, 0.864, -0.672]}
                 rotation={[-Math.PI / 2, 0, -1.571]}
                 scale={1.102}
@@ -949,9 +952,9 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
               <mesh
                 name="binder labels"
                 geometry={
-                  nodes.documents1228J2_StaticMeshComponent0_MI_W1_1_0.geometry
+                  nodes?.documents1228J2_StaticMeshComponent0_MI_W1_1_0.geometry
                 }
-                material={materials.MI_Color_A01_3}
+                material={materials?.MI_Color_A01_3}
                 position={[0.289, 1.06, -0.827]}
                 rotation={[-Math.PI / 2, 0, 0]}
                 scale={1.102}
@@ -962,10 +965,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
               <mesh
                 name="binders lightblue"
                 geometry={
-                  nodes.documents1228J2_StaticMeshComponent0_MI_Object_131_0
+                  nodes?.documents1228J2_StaticMeshComponent0_MI_Object_131_0
                     .geometry
                 }
-                material={materials.MI_Object_131}
+                material={materials?.MI_Object_131}
                 position={[0.289, 1.06, -0.827]}
                 rotation={[-Math.PI / 2, 0, 0]}
                 scale={1.102}
@@ -976,10 +979,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
               <mesh
                 name="binders pink"
                 geometry={
-                  nodes.documents1228J2_StaticMeshComponent0_MI_Color_B04_1_1_0
+                  nodes?.documents1228J2_StaticMeshComponent0_MI_Color_B04_1_1_0
                     .geometry
                 }
-                material={materials.MI_Color_B04_1}
+                material={materials?.MI_Color_B04_1}
                 position={[0.289, 1.06, -0.827]}
                 rotation={[-Math.PI / 2, 0, 0]}
                 scale={1.102}
@@ -990,10 +993,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
               <mesh
                 name="binders blue"
                 geometry={
-                  nodes.documents1228J2_StaticMeshComponent0_MI_Color_G05_1_0
+                  nodes?.documents1228J2_StaticMeshComponent0_MI_Color_G05_1_0
                     .geometry
                 }
-                material={materials.MI_Color_G05}
+                material={materials?.MI_Color_G05}
                 position={[0.289, 1.06, -0.827]}
                 rotation={[-Math.PI / 2, 0, 0]}
                 scale={1.102}
@@ -1004,10 +1007,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
               <mesh
                 name="left documents binders papers"
                 geometry={
-                  nodes.documents1228J2_StaticMeshComponent0_MI_Default_2_0
+                  nodes?.documents1228J2_StaticMeshComponent0_MI_Default_2_0
                     .geometry
                 }
-                material={materials.MI_Default_2}
+                material={materials?.MI_Default_2}
                 position={[0.289, 1.06, -0.827]}
                 rotation={[-Math.PI / 2, 0, 0]}
                 scale={1.102}
@@ -1018,10 +1021,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
               <mesh
                 name="binders base"
                 geometry={
-                  nodes.documents1228J2_StaticMeshComponent0_MI_Color_M04_1_0
+                  nodes?.documents1228J2_StaticMeshComponent0_MI_Color_M04_1_0
                     .geometry
                 }
-                material={materials.MI_Color_M04}
+                material={materials?.MI_Color_M04}
                 position={[0.289, 1.06, -0.827]}
                 rotation={[-Math.PI / 2, 0, 0]}
                 scale={1.102}
@@ -1033,10 +1036,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
               <mesh
                 name="organizers blue"
                 geometry={
-                  nodes.documents1228J2_StaticMeshComponent0_MI_Color_F06_1_0
+                  nodes?.documents1228J2_StaticMeshComponent0_MI_Color_F06_1_0
                     .geometry
                 }
-                material={materials.MI_Color_F06}
+                material={materials?.MI_Color_F06}
                 position={[0.289, 1.06, -0.827]}
                 rotation={[-Math.PI / 2, 0, 0]}
                 scale={1.102}
@@ -1051,10 +1054,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
               <mesh
                 name="binder labels"
                 geometry={
-                  nodes.documents1228J4_458_StaticMeshComponent0_MI_W1_1_0
+                  nodes?.documents1228J4_458_StaticMeshComponent0_MI_W1_1_0
                     .geometry
                 }
-                material={materials.MI_Color_A01_3}
+                material={materials?.MI_Color_A01_3}
                 position={[-0.304, 0.777, 0.79]}
                 rotation={[-Math.PI / 2, 0, -1.571]}
                 scale={1.102}
@@ -1065,10 +1068,11 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
               <mesh
                 name="binders lightblue"
                 geometry={
-                  nodes.documents1228J4_458_StaticMeshComponent0_MI_Object_131_0
+                  nodes
+                    ?.documents1228J4_458_StaticMeshComponent0_MI_Object_131_0
                     .geometry
                 }
-                material={materials.MI_Object_131}
+                material={materials?.MI_Object_131}
                 position={[-0.304, 0.777, 0.79]}
                 rotation={[-Math.PI / 2, 0, -1.571]}
                 scale={1.102}
@@ -1080,10 +1084,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
                 name="binders pink"
                 geometry={
                   nodes
-                    .documents1228J4_458_StaticMeshComponent0_MI_Color_B04_1_1_0
+                    ?.documents1228J4_458_StaticMeshComponent0_MI_Color_B04_1_1_0
                     .geometry
                 }
-                material={materials.MI_Color_B04_1}
+                material={materials?.MI_Color_B04_1}
                 position={[-0.304, 0.777, 0.79]}
                 rotation={[-Math.PI / 2, 0, -1.571]}
                 scale={1.102}
@@ -1095,10 +1099,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
                 name="binders blue"
                 geometry={
                   nodes
-                    .documents1228J4_458_StaticMeshComponent0_MI_Color_G05_1_0
+                    ?.documents1228J4_458_StaticMeshComponent0_MI_Color_G05_1_0
                     .geometry
                 }
-                material={materials.MI_Color_G05}
+                material={materials?.MI_Color_G05}
                 position={[-0.304, 0.777, 0.79]}
                 rotation={[-Math.PI / 2, 0, -1.571]}
                 scale={1.102}
@@ -1111,10 +1115,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
                 name="binders base"
                 geometry={
                   nodes
-                    .documents1228J4_458_StaticMeshComponent0_MI_Color_M04_1_0
+                    ?.documents1228J4_458_StaticMeshComponent0_MI_Color_M04_1_0
                     .geometry
                 }
-                material={materials.MI_Color_M04}
+                material={materials?.MI_Color_M04}
                 position={[-0.304, 0.777, 0.79]}
                 rotation={[-Math.PI / 2, 0, -1.571]}
                 scale={1.102}
@@ -1125,10 +1129,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
               <mesh
                 name="papers"
                 geometry={
-                  nodes.documents1228J4_458_StaticMeshComponent0_MI_Default_2_0
+                  nodes?.documents1228J4_458_StaticMeshComponent0_MI_Default_2_0
                     .geometry
                 }
-                material={materials.MI_Default_2}
+                material={materials?.MI_Default_2}
                 position={[-0.304, 0.777, 0.79]}
                 rotation={[-Math.PI / 2, 0, -1.571]}
                 scale={1.102}
@@ -1140,10 +1144,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
                 name="organizers blue"
                 geometry={
                   nodes
-                    .documents1228J4_458_StaticMeshComponent0_MI_Color_F06_1_0
+                    ?.documents1228J4_458_StaticMeshComponent0_MI_Color_F06_1_0
                     .geometry
                 }
-                material={materials.MI_Color_F06}
+                material={materials?.MI_Color_F06}
                 position={[-0.304, 0.777, 0.79]}
                 rotation={[-Math.PI / 2, 0, -1.571]}
                 scale={1.102}
@@ -1155,10 +1159,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
               <mesh
                 name="binders black"
                 geometry={
-                  nodes.documents1228F_455_StaticMeshComponent0_MI_Object_41_0
+                  nodes?.documents1228F_455_StaticMeshComponent0_MI_Object_41_0
                     .geometry
                 }
-                material={materials.MI_Object_41}
+                material={materials?.MI_Object_41}
                 position={[0.138, 0.777, 0.722]}
                 rotation={[-Math.PI / 2, 0, Math.PI]}
                 scale={1.102}
@@ -1170,10 +1174,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
               <mesh
                 name="paper thick"
                 geometry={
-                  nodes.documents1228F_455_StaticMeshComponent0_MI_Default_0
+                  nodes?.documents1228F_455_StaticMeshComponent0_MI_Default_0
                     .geometry
                 }
-                material={materials.MI_Default}
+                material={materials?.MI_Default}
                 position={[0.138, 0.777, 0.722]}
                 rotation={[-Math.PI / 2, 0, Math.PI]}
                 scale={1.102}
@@ -1188,9 +1192,9 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
             <mesh
               name="tissue"
               geometry={
-                nodes.tissue1228A2_StaticMeshComponent0_MI_white_0.geometry
+                nodes?.tissue1228A2_StaticMeshComponent0_MI_white_0.geometry
               }
-              material={materials.MI_white}
+              material={materials?.MI_white}
               position={[-0.013, 0.864, -0.705]}
               rotation={[-Math.PI / 2, 0, 0]}
               scale={1.102}
@@ -1203,10 +1207,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
             <mesh
               name="base"
               geometry={
-                nodes.Ballpen1228A4_StaticMeshComponent0_MI_Object_103_0
+                nodes?.Ballpen1228A4_StaticMeshComponent0_MI_Object_103_0
                   .geometry
               }
-              material={materials.MI_Object_103}
+              material={materials?.MI_Object_103}
               position={[-0.263, 0.864, -0.444]}
               rotation={[-Math.PI / 2, 0, 0]}
               scale={1.102}
@@ -1218,10 +1222,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
               name="cap point"
               geometry={
                 nodes
-                  .Ballpen1228A4_StaticMeshComponent0_MI_Metal_Corrogated_Shiny_0
+                  ?.Ballpen1228A4_StaticMeshComponent0_MI_Metal_Corrogated_Shiny_0
                   .geometry
               }
-              material={materials.MI_Metal_Aluminum_Anodized}
+              material={materials?.MI_Metal_Aluminum_Anodized}
               position={[-0.263, 0.864, -0.444]}
               rotation={[-Math.PI / 2, 0, 0]}
               scale={1.102}
@@ -1234,10 +1238,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
             <mesh
               name="mouse1228A10_StaticMeshComponent0_MI_plasticwhite03_0"
               geometry={
-                nodes.mouse1228A10_StaticMeshComponent0_MI_plasticwhite03_0
+                nodes?.mouse1228A10_StaticMeshComponent0_MI_plasticwhite03_0
                   .geometry
               }
-              material={materials.MI_plasticwhite03}
+              material={materials?.MI_plasticwhite03}
               position={[-0.192, 0.864, 0.258]}
               rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
               scale={1.102}
@@ -1253,9 +1257,9 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
           <mesh
             name="desktop base"
             geometry={
-              nodes.desktop1228A3_StaticMeshComponent0_MI_Color_L25_0.geometry
+              nodes?.desktop1228A3_StaticMeshComponent0_MI_Color_L25_0.geometry
             }
-            material={materials.MI_Color_L25}
+            material={materials?.MI_Color_L25}
             position={[0.076, 0.004, 0.198]}
             rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
             scale={1.102}
@@ -1266,9 +1270,9 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
           <mesh
             name="outer front panel"
             geometry={
-              nodes.desktop1228A3_StaticMeshComponent0_MI_Color_B01_0.geometry
+              nodes?.desktop1228A3_StaticMeshComponent0_MI_Color_B01_0.geometry
             }
-            material={materials.MI_Color_B01}
+            material={materials?.MI_Color_B01}
             position={[0.076, 0.004, 0.198]}
             rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
             scale={1.102}
@@ -1279,9 +1283,10 @@ export function Office(props: JSX.IntrinsicElements["group"]) {
           <mesh
             name="desktop rings"
             geometry={
-              nodes.desktop1228A3_StaticMeshComponent0_MI_Color_A05_2_0.geometry
+              nodes?.desktop1228A3_StaticMeshComponent0_MI_Color_A05_2_0
+                .geometry
             }
-            material={materials.MI_Color_A05_2}
+            material={materials?.MI_Color_A05_2}
             position={[0.076, 0.004, 0.198]}
             rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
             scale={1.102}

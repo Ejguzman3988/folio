@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { CameraControls } from "@react-three/drei";
 import { CameraDebug } from "./CameraDebug";
 import { MathUtils } from "three";
-import { cameraProps } from "./camera.ts";
+import { cameraProps } from "./lib_camera";
 
 const Camera = () => {
   const cameraControlsRef = useRef(null);

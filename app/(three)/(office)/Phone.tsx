@@ -6,9 +6,9 @@ export default function Phone({ nodes, materials }: Partial<GLTFResult>) {
       <mesh
         name="screen"
         geometry={
-          nodes.telephone1228A6_StaticMeshComponent0_MI_Color_M07_0.geometry
+          nodes?.telephone1228A6_StaticMeshComponent0_MI_Color_M07_0.geometry
         }
-        material={materials.MI_Color_M06_1}
+        material={materials?.MI_Color_M06_1}
         position={[-0.032, 0.864, -0.919]}
         rotation={[-Math.PI / 2, 0, -0.873]}
         scale={1.102}
@@ -19,10 +19,10 @@ export default function Phone({ nodes, materials }: Partial<GLTFResult>) {
       <mesh
         name="base"
         geometry={
-          nodes.telephone1228A6_StaticMeshComponent0_MI_plasticwhite03_0
+          nodes?.telephone1228A6_StaticMeshComponent0_MI_plasticwhite03_0
             .geometry
         }
-        material={materials.MI_plasticwhite03}
+        material={materials?.MI_plasticwhite03}
         position={[-0.032, 0.864, -0.919]}
         rotation={[-Math.PI / 2, 0, -0.873]}
         scale={1.102}
